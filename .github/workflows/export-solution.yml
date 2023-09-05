@@ -25,18 +25,3 @@ jobs:
             tenant-id: ${{ secrets.TENANT_ID }}
             solution-name: ${{ secrets.SOLUTION_NAME }}
             solution-output-file: bin/${{ secrets.SOLUTION_NAME }}.zip
-      - name: unpack-solution action
-        uses: microsoft/powerplatform-actions/unpack-solution@v0.6.3
-        with:
-          solution-file: bin/${{ secrets.SOLUTION_NAME }}.zip
-          solution-folder: out/${{ secrets.SOLUTION_NAME }}
-          solution-type: 'Unmanaged'
-          overwrite-files: true
-      - name: branch-solution, prepare it for a PullRequest
-        uses: microsoft/powerplatform-actions/branch-solution@v0.6.3
-        with:
-          solution-folder: out/${{ secrets.SOLUTION_NAME }}
-          solution-target-folder: ${{ secrets.SOLUTION_NAME }}
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          allow-empty-commit: true
-          branch-name: ${{ secrets.SOLUTION_NAME }}-${{ github.run_id }}
